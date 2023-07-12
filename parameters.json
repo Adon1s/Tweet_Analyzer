@@ -1,0 +1,11 @@
+{
+    "prompt": "Determine whether a Tweet's sentiment is positive, neutral, or negative based on a 1-10 scale, with 1 being the most negative and 10 being the most positive.",
+    "model": "gpt-3.5-turbo",
+    "temperature": 0.5,
+    "max_tokens": 256,
+    "n": 1,
+    "stop": null,
+    "presence_penalty": 0,
+    "frequency_penalty": 0.1,
+    "file_path": "C:\\Users\\Steven_Yates_i3\\Documents\\Responses"
+}
