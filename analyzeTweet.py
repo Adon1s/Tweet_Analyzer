@@ -22,6 +22,7 @@ from pathlib import Path
 from typing import List, Optional, Union
 
 prompt = "Provide a number based on if a Tweet's sentiment is positive, neutral, or negative based on a 1-10 scale, with 1 being the most negative and 10 being the most positive. Only provide the number value in your response. 'Uncover the secrets to the universe in Starfield™. Upgrade your PC with AMD RADEON™ graphics cards and experience it to the fullest. GET Starfield™ when you buy selected MSI RADEON™ graphics cards'"
+filePath = os.getenv('OPENAI_RESPONSE_DIR', 'default/path')
 
 AVAILABLE_MODELS = [
     "gpt-4",
@@ -157,7 +158,7 @@ def main(
         presence_penalty: float = 0.0,
         frequency_penalty: float = 0.0,
         input_path: Optional[str] = None,
-        out_dir: Optional[str] = "C:\\Users\\Steven_Yates_i3\\Documents\\Responses",
+        out_dir: Optional[str] = filePath,
         save_prompt: bool = False,
         markdown: bool = False,
         verbose: bool = False,
