@@ -21,7 +21,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import List, Optional, Union
 
-prompt = "Provide a number based on if a Tweet's sentiment is positive, neutral, or negative based on a 1-10 scale, with 1 being the most negative and 10 being the most positive. 'Uncover the secrets to the universe in Starfield™. Upgrade your PC with AMD RADEON™ graphics cards and experience it to the fullest. GET Starfield™ when you buy selected MSI RADEON™ graphics cards'"
+prompt = "Provide a number based on if a Tweet's sentiment is positive, neutral, or negative based on a 1-10 scale, with 1 being the most negative and 10 being the most positive. Only provide the number value in your response. 'Uncover the secrets to the universe in Starfield™. Upgrade your PC with AMD RADEON™ graphics cards and experience it to the fullest. GET Starfield™ when you buy selected MSI RADEON™ graphics cards'"
 
 AVAILABLE_MODELS = [
     "gpt-4",
@@ -58,7 +58,7 @@ def validate_model(model):
 def chat_generate_text(
         prompt: str,
         openai_api_key: str = None,
-        model: str = "gpt-3.5-turbo",
+        model: str = "text-davinci-003",
         system_prompt: str = "You are a helpful assistant.",
         temperature: float = 0.5,
         max_tokens: int = 256,
@@ -92,9 +92,9 @@ def chat_generate_text(
         {"role": "user", "content": prompt},
     ]
 
-    response = openai.ChatCompletion.create(
+    response = openai.Completion.create(
         model=model,
-        messages=messages,
+        prompt=prompt,
         temperature=temperature,
         max_tokens=max_tokens,
         n=n,
@@ -103,9 +103,7 @@ def chat_generate_text(
         frequency_penalty=frequency_penalty,
     )
 
-    generated_texts = [
-        choice.message["content"].strip() for choice in response["choices"]
-    ]
+    generated_texts = [choice.text.strip() for choice in response.choices]
     return generated_texts
 
 
@@ -150,7 +148,7 @@ def save_output_to_file(
 def main(
         prompt: Optional[str] = prompt,
         api_key: Optional[str] = None,
-        model: str = "gpt-3.5-turbo",
+        model: str = "text-davinci-003",
         system_prompt: str = "You are a helpful assistant.",
         temperature: float = 0.5,
         max_tokens: int = 256,

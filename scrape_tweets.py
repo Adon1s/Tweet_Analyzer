@@ -15,6 +15,8 @@ def scrape_tweet(url: str) -> dict:
         # we can extract details from background requests
         if response.request.resource_type == "xhr":
             _xhr_calls.append(response)
+            """print(f"Intercepted: {response.url}")"""
+            print(_xhr_calls)
         return response
 
     with sync_playwright() as pw:
@@ -30,11 +32,13 @@ def scrape_tweet(url: str) -> dict:
 
         # find all tweet background requests:
         tweet_calls = [f for f in _xhr_calls if "TweetDetail" in f.url]
+        print(tweet_calls)
         tweets = []
         for xhr in tweet_calls:
             data = xhr.json()
             xhr_tweets = nested_lookup("tweet_results", data)
             tweets.extend([tweet["result"] for tweet in xhr_tweets])
+            print(tweets)
 
         # Now that we have all tweets we can parse them into a thread
         # The first tweet is the parent, the rest are replies or suggested tweets
@@ -54,4 +58,4 @@ def scrape_tweet(url: str) -> dict:
 
 
 if __name__ == "__main__":
-    print(scrape_tweet("https://twitter.com/Scrapfly_dev/status/1664267318053179398"))
+    print(scrape_tweet("https://twitter.com/msigaming/status/1678938761797816320"))
