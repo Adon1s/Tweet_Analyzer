@@ -9,7 +9,6 @@ Notes:
 - The OpenAI API key can be set using the OPENAI_API_KEY environment variable (recommended) or using the --api_key argument.
 - This script supports inference with the "chat" models only.
 """
-import tweepy
 import json
 import logging
 import os
