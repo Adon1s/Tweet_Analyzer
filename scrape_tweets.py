@@ -1,4 +1,4 @@
-from playwright.sync_api import sync_playwright
+from playwright.sync_api import sync_playwright, Page
 from nested_lookup import nested_lookup
 
 
@@ -17,10 +17,22 @@ def scrape_tweet(url: str) -> dict:
             _xhr_calls.append(response)
         return response
 
+    def login(page):
+        page.goto('https://twitter.com/login')
+        page.wait_for_selector('input[name="session[username_or_email]"]')
+        page.fill('input[name="session[username_or_email]"]', 'ownunext@live.com')
+        page.fill('input[name="session[password]"]', 'Number72!')
+        page.click('div[data-testid="LoginForm_Login_Button"]')
+        # Wait for navigation to ensure login has been processed
+        page.wait_for_navigation()
+
     with sync_playwright() as pw:
         browser = pw.chromium.launch()
         context = browser.new_context(viewport={"width": 1920, "height": 1080})
-        page = context.new_page()
+        page: Page = context.new_page()
+
+        # Add login before navigation
+        """login(page)"""
 
         # enable background request intercepting:
         page.on("response", intercept_response)
