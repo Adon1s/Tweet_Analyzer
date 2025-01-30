@@ -28,7 +28,7 @@ def get_reddit(subreddit, listing, limit, timeframe):
         base_url = f'https://www.reddit.com/r/{subreddit}/{listing}.json?limit={limit}&t={timeframe}'
         request = requests.get(base_url, headers={'User-agent': 'yourbot'})
     except:
-        print('An Error Occured')
+        print('An Error Occurred')
     return request.json()
 
 
@@ -85,7 +85,7 @@ def print_posts(reddit, subreddit_name, filename, limit=10, timeframe='hot'):
 if __name__ == '__main__':
     r = get_reddit(subreddit, listing, limit, timeframe)
     df = get_results(r)
-    df.to_csv('C:\\Users\\Steven_Yates_i3\\Documents\\Tweet_Analyzer\\output.csv', index=False)
-    print_posts(reddit, "Python", 'C:\\Users\\Steven_Yates_i3\\Documents\\Tweet_Analyzer\\posts.json', limit=5, timeframe='new')
+    df.to_csv('C:\\Users\\Steven\\Documents\\output.csv', index=False)
+    print_posts(reddit, "Python", 'C:\\Users\\Steven\\Documents\\output.csv', limit=5, timeframe='new')
     print(reddit.user.me())
     '''print_posts(reddit, "Python", limit=5, timeframe='new')'''
