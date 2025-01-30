@@ -1,5 +1,5 @@
 """
-inference_openai.py - text generation with OpenAI API
+analyzeTweet.py - text generation with OpenAI API
     See https://platform.openai.com/docs/quickstart for more details.
 Usage:
 python inference_openai.py --prompt "The quick brown fox jumps over the lazy dog." --model "gpt-3.5-turbo" --temperature 0.5 --max_tokens 256 --n 1 --stop "."
